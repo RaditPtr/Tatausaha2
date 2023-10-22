@@ -40,6 +40,12 @@
         .cet {
             padding-bottom: 10px;
         }
+        .gambar {
+            padding: 0px 20px;
+        }
+       img{
+        margin: 20px auto; 
+       } 
     </style>
 </head>
 
@@ -54,8 +60,8 @@
                         <div class="card bg-white">
                             <div class="container cuy">
                                 <div class="row">
-                                    <div class="col-sm">
-                                        <img src={{ asset('img/loginpict.png') }} alt="description of myimage" width="300">
+                                    <div class="col-sm gambar">
+                                        <img src={{ asset('img/loginpict.png') }} alt="description of myimage" width="200">
                                     </div>
                                     <div class="col-sm nih">
                                         <div>

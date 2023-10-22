@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">
                     <span class="h1">
-                        Tambah Data Guru
+                        Tambah Data Guru 
                     </span>
                 </div>
                 <div class="card-body">
@@ -14,8 +14,13 @@
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="form-group">
-                                    <label>Id Guru</label>
-                                    <input type="text" class="form-control" name="id_guru" />
+                                    <label>Id Akun</label>
+                                    <select name="id_user" class="form-control">
+                                        @foreach ($id_user as $us)
+                                            <option value="{{ $us->id_user }}">{{ $us->id_user }} - {{ $us ->username}}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                     <label>Nama Guru</label>
                                     <input type="text" class="form-control" name="nama_guru" />
                                     <label>Foto Guru</label>

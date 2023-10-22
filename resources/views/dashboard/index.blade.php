@@ -1,58 +1,38 @@
 @extends('layout.layout')
 @section('title', 'Daftar Guru')
 @section('content')
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card bg-white" >
-                <div class="card-header">
-                    <span class="h1">
-                        Data Guru
-                    </span>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <a href="dashboard/tambah">
-                                <btn class="btn btn-success">Tambah Guru</btn>
-                            </a>
-
-                        </div>
-                        <p>
-                            <hr>
-                        <table class="table table-hover table-bordered DataTable">
-                            <thead>
-                                <tr>
-                                    <th>ID GURU</th>
-                                    <th>NAMA GURU</th>
-                                    <th>FOTO GURU</th>
-                                    <th>AKSI</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($guru as $g)
-                                    <tr>
-                                        <td>{{ $g->id_guru }}</td>
-                                        <td>{{ $g->nama_guru }}</td>
-                                        <td >
-                                            @if ($g->foto_guru)
-                                                <img src="{{ url('foto') . '/' . $g->foto_guru }} "
-                                                    style="max-width: 250px; height: auto;" />
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="dashboard/edit/{{ $g->id_guru }}">
-                                                <btn class="btn btn-primary">EDIT</btn>
-                                            </a>
-                                            <btn class="btn btn-danger btnHapus" idGuru="{{ $g->id_guru }}">HAPUS</btn>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{{ asset('gambar/card1.jpg') }}" class="card-img-top" alt="Card Image">
+                    <div class="card-body">
+                        <h5 class="card-title">Card 1</h5>
+                        <p class="card-text">Deskripsi Card 1. Ini adalah contoh card pertama.</p>
+                        <a href="#" class="btn btn-primary">Lihat Detail</a>
                     </div>
                 </div>
-                <div class="card-footer">
+            </div>
 
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{{ asset('gambar/card2.jpg') }}" class="card-img-top" alt="Card Image">
+                    <div class="card-body">
+                        <h5 class="card-title">Card 2</h5>
+                        <p class="card-text">Deskripsi Card 2. Ini adalah contoh card kedua.</p>
+                        <a href="#" class="btn btn-primary">Lihat Detail</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <img src="{{ asset('gambar/card3.jpg') }}" class="card-img-top" alt="Card Image">
+                    <div class="card-body">
+                        <h5 class="card-title">Card 3</h5>
+                        <p class="card-text">Deskripsi Card 3. Ini adalah contoh card ketiga.</p>
+                        <a href="#" class="btn btn-primary">Lihat Detail</a>
+                    </div>
                 </div>
             </div>
         </div>

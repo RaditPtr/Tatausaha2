@@ -55,7 +55,7 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ url('dashboard/surat') }}">Dashboard</a>
+                        <a class="nav-link active" aria-current="page" href="{{ url('dashboard') }}">Dashboard</a>
                     </li>
                     @if (Auth::check() && Auth::user()->role == 'admin')
                         <li class="nav-item">
@@ -65,9 +65,21 @@
                             <a class="nav-link" href="{{ url('jenis/surat') }}">Jenis Surat</a>
                         </li>
                     @endif
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url('transaksi/surat') }}">List</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="listDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            List Data
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="listDropdown">
+                            <a class="dropdown-item" href="{{ url('dashboard/akun') }}">Data Akun</a>
+                            <a class="dropdown-item" href="{{ url('dashboard/guru') }}">Data Guru</a>
+                            <!-- Tambahkan lebih banyak item dropdown sesuai kebutuhan -->
+                        </div>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('dashboard/logs') }}">Log Activity</a>
+                    </li>
+                    
+                    
                 </ul>
                 <div class="d-flex">
                     <a href="{{ url('/logout') }}"><button class="btn btn-secondary">Logout</button></a>

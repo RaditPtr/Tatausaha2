@@ -1,12 +1,12 @@
 @extends('layout.layout')
-@section('title', 'Edit Guru ')
+@section('title', 'Tambah Akun')
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <span class="h1">
-                        Edit Data Guru
+                        Tambah Data Akun
                     </span>
                 </div>
                 <div class="card-body">
@@ -14,18 +14,18 @@
                         <div class="row">
                             <div class="col-md-5">
                                 <div class="form-group">
-                                    <label>Nama Guru</label>
-                                    <input type="text" class="form-control" name="nama_guru"
-                                        value="{{ $guru->nama_guru }}" />
+                                    <label>Username</label>
+                                    <input type="text" class="form-control" name="username" />
+                                    <label>Password</label>
+                                    <input type="text" class="form-control" name="password" />
+                                    <label>Role</label>
+                                    <select name="role" class="form-control">
+                                        <option disabled selected>Pilih Role</option>
+                                        <option name="tatausaha">Tatausaha</option>
+                                        {{-- <option name="operator">Operator</option> --}}
+                                    </select>
+                                    @csrf
                                 </div>
-                                <div class="form-group">
-                                    <label>Foto Guru</label>
-                                    <input type="file" class="form-control" name="foto_guru" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="hidden" name="id_guru" value="{{ $guru->id_guru }}" />
-                                </div>
-                                @csrf
                                 <div class="col-md-4 mt-3">
                                     <button type="submit" class="btn btn-primary">SIMPAN</button>
                                     <a href="#" onclick="window.history.back();" class="btn btn-success">KEMBALI</a>

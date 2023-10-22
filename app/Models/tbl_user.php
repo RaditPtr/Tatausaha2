@@ -13,6 +13,9 @@ class tbl_user extends Authenticatable
     protected $fillable = ['username','password','role'];
     public $timestamps = false;
 
+    public function gurus() {
+        return $this->hasMany(Guru::class, 'id_user');
+    }
 }
 
 
