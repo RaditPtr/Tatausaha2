@@ -1,6 +1,11 @@
 @extends('layout.layout')
 @section('title', 'Daftar Akun')
 @section('content')
+<style>
+    body {
+        background-color: #98E4FF;
+    }    
+</style>
 <div class="row">
     <div class="col-md-12">
         <div class="mb-3">
@@ -12,6 +17,10 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
+                        <span class="h4">
+                            Jumlah Akun yang telah dibuat : {{$jumlahAkun}}
+                        </span>
+                        <br>
                         <a href="akun/tambah">
                             <btn class="btn btn-success">Tambah Akun</btn>
                         </a>
@@ -32,7 +41,7 @@
                                     <td>{{ $a->username }}</td>
                                     <td>{{ $a->role }}</td>
                                     <td>
-                                        <a href="user/edit/{{ $a->id_user }}">
+                                        <a href="edit/{{ $a->id_user }}">
                                             <btn class="btn btn-primary">EDIT</btn>
                                         </a>
                                         <btn class="btn btn-danger btnHapus" idUser="{{ $a->id_user }}">HAPUS</btn>

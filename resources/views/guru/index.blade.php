@@ -1,18 +1,27 @@
 @extends('layout.layout')
 @section('title', 'Daftar Guru')
 @section('content')
+    <style>
+    body {
+        background-color: #98E4FF;
+    }    
+    </style>
     <div class="row">
         <div class="col-md-12">
+            <div class="mb-3">
+                <span class="h1 fw-bold">
+                    Data Guru
+                </span>
+            </div>
             <div class="card bg-white" >
-                <div class="card-header">
-                    <span class="h1">
-                        Data Guru
-                    </span>
-                </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <a href="tambah">
+                            <span class="h4">
+                                Jumlah Akun yang telah dibuat : {{$jumlahGuru}}
+                            </span>
+                            <br>
+                            <a href="guru/tambah">
                                 <btn class="btn btn-success">Tambah Guru</btn>
                             </a>
 

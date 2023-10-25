@@ -1,6 +1,11 @@
 @extends('layout.layout')
 @section('title', 'Tambah Guru')
 @section('content')
+<style>
+    body {
+        background-color: #98E4FF;
+    }    
+</style>
     <div class="row">
         <div class="col-md-12">
             <div class="card">

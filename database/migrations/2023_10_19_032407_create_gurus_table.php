@@ -15,7 +15,7 @@ return new class extends Migration
             $table->integer('id_guru', true)->nullable(false);
             $table->integer('id_user', false)->index('id_user');
             $table->string('nama_guru', 60)->nullable(false);
-            $table->text('foto_guru')->nullable(false);
+            $table->text('foto_guru')->nullable(true);
             // $table->timestamps();
 
             $table->foreign('id_user')->on('tbl_user')

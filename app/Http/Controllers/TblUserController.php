@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\tbl_user;
+use Exception;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TblUserController extends Controller
 {
@@ -13,8 +15,11 @@ class TblUserController extends Controller
      */
     public function index(tbl_user $akun)
     {
+        $totalAkun = DB::select('SELECT CountTotalDataAkun() AS totalAkun')[0]->totalAkun;
+
         $data = [
-            'akun' => $akun->all()
+            'akun' => $akun->all(),
+            'jumlahAkun' => $totalAkun
         ];
         return view('akun.index', $data);
     }
@@ -41,12 +46,10 @@ class TblUserController extends Controller
             ]
         );
         
-
+        $data['password'] = hash::make($data['password']);
         //Proses Insert
-        if ($data) {
-            $data['password'] = hash::make($data['password']);
+        if (DB::statement("CALL CreateUser(?,?,?)", [$data['username'], $data['password'], $data['role']])) {
             // Simpan jika data terisi semua
-            $akun->create($data);
             return redirect('dashboard/akun')->with('success', 'Data user baru berhasil ditambah');
         } else {
             // Kembali ke form tambah data
@@ -65,17 +68,44 @@ class TblUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(tbl_user $tbl_user)
+    public function edit(string $id, tbl_user $akun)
     {
-        //
+        $data = [
+            'akun' =>  tbl_user::where('id_user', $id)->first()
+        ];
+
+        return view('akun.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, tbl_user $tbl_user)
+    public function update(Request $request, tbl_user $akun)
     {
-        //
+        $data = $request->validate([
+            'username' => ['sometimes'],
+            'password' => ['sometimes'],
+            'role'    => ['sometimes'],
+        ]);
+
+        $id_user = $request->input('id_user');
+        if ($id_user !== null) {
+            // Process Update
+
+            if ($request->has('password')) {
+                $data['password'] = Hash::make($request->input('password'));
+            };
+
+            DB::beginTransaction();
+            try {
+                $dataUpdate = $akun->where('id_user', $id_user)->update($data);
+                DB::commit();
+                return redirect('dashboard/akun')->with('success', 'Data user berhasil di update');
+            } catch (Exception $e) {
+                DB::rollBack();
+                dd($e->getMessage());
+            }
+        }
     }
 
     /**

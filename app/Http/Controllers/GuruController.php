@@ -13,11 +13,17 @@ class GuruController extends Controller
 {
     //
     public function index(Guru $guru){
+        $totalGuru = DB::select('SELECT CountTotalDataGuru() AS totalGuru')[0]->totalGuru;
+
+        $guru = DB::table('view_guru')->get();
         $data = [
-            'user' => DB::table('guru')
-            ->join('tbl_user', 'guru.id_user', '=', 'tbl_user.id_user')
-            ->select('guru.*','tbl_user.*')->orderBy('id_guru', 'asc')
-            ->get()
+            // 'user' => DB::table('guru')
+            // ->join('tbl_user', 'guru.id_user', '=', 'tbl_user.id_user')
+            // ->select('guru.*','tbl_user.*')->orderBy('id_guru', 'asc')
+            // ->get(),
+
+            'user' => $guru,
+            'jumlahGuru' => $totalGuru
         ];
         // dd($data);
         return view('guru.index', $data);
@@ -69,7 +75,7 @@ class GuruController extends Controller
 
     public function update(Request $request, Guru $guru)
     {
-        $id_guru = $request->input('id_guru');
+        $selectedId = $request->input('id_jenis_surat');
 
         $data = $request->validate([
             'id_guru' => 'sometimes',
@@ -78,33 +84,34 @@ class GuruController extends Controller
             'foto_guru' => 'sometimes'
         ]);
 
-        if ($id_guru !== null) {
+        if ($data['id_guru'] !== null) {
             if ($request->hasFile('foto_guru')) {
                 $foto_file = $request->file('foto_guru');
                 $foto_extension = $foto_file->getClientOriginalExtension();
                 $foto_nama = md5($foto_file->getClientOriginalName() . time()) . '.' . $foto_extension;
                 $foto_file->move(public_path('foto'), $foto_nama);
 
-                $update_data = $guru->where('id_guru', $id_guru)->first();
-                File::delete(public_path('foto') . '/' . $update_data->file);
+                $update_data = $guru->where('id_guru', $data['id_guru'])->first();
+                File::delete(public_path('foto') . '/' . $update_data->foto_guru);
 
                 $data['foto_guru'] = $foto_nama;
             }
 
-            $dataUpdate = $guru->where('id_guru', $id_guru)->update($data);
+            $data['id_user'] = $selectedId;
+
+            $dataUpdate = $guru->where('id_guru', $data['id_guru'])->update($data);
 
             if ($dataUpdate) {
                 return redirect('dashboard/guru')->with('success', 'Data Guru berhasil diupdate');
             } else {
                 return back()->with('error', 'Data Guru gagal diupdate');
             }
-
         }
     }
 
     public function destroy(Guru $guru, Request $request) {
         $idGuru = $request->input('id_guru');
-        $data = Guru::find($idGuru);
+        $guru = Guru::find($idGuru);
         
         if (!$guru) {
             // Jika data guru tidak ditemukan, kembalikan respons kesalahan
