@@ -15,8 +15,10 @@ class TblUserController extends Controller
      */
     public function index(tbl_user $akun)
     {
+        // mengambil data jumlah akun dan mendeklarasikan nya
         $totalAkun = DB::select('SELECT CountTotalDataAkun() AS totalAkun')[0]->totalAkun;
 
+        // untuk menampilkan data akun dan data jumlah akun
         $data = [
             'akun' => $akun->all(),
             'jumlahAkun' => $totalAkun
@@ -38,6 +40,7 @@ class TblUserController extends Controller
      */
     public function store(Request $request, tbl_user $akun)
     {
+        // Array untuk 
         $data = $request->validate(
             [
                 'username' => ['required'],
@@ -82,6 +85,7 @@ class TblUserController extends Controller
      */
     public function update(Request $request, tbl_user $akun)
     {
+        // Array untuk memvalidasi data yg masuk/request dari pengguna
         $data = $request->validate([
             'username' => ['sometimes'],
             'password' => ['sometimes'],
